@@ -13,7 +13,7 @@
         <td><%= game.id %></td>
         <td><%= game.created_at.strftime("%m-%d-%Y") %></td>
         <td><%= game.players.map(&:username).join(", ") %></td>
-        <td><%= link_to "Continue Playing", rounds_path %></td>
+        <td><%= link_to "Continue Playing", game_path(game) %></td>
       </tr>
     <% end %>
   </tbody>

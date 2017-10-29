@@ -1,0 +1,10 @@
+<h1>Game #<%= @game.id %></h1>
+<p><%= @game.created_at.strftime("%m-%d-%Y") %></p>
+<table class="table">
+  <thead>
+    <th>Round</th>
+      <% @game.players.each do |player| %>
+        <th><%= player.username %></th>
+      <% end %>
+  </thead>
+</table>
