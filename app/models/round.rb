@@ -1,4 +1,6 @@
 class Round
+  PHARCLE = [1, 2, 3, 4, 5, 6]
+
   def turn
     grouped_by_value = roll(6)
     turn_one = score_and_such(grouped_by_value, 6)
@@ -30,9 +32,10 @@ class Round
 
   def score_and_such(grouped_by_value, dice_count)
     score = 0
-    values = []
+    pairs = []
+    values = grouped_by_value.map { |k, v| v.map(&:value) }.flatten
+    return pharcle if values.sort == PHARCLE
     grouped_by_value.each do |k, v|
-      v.each { |dice| values << dice.value }
       count = v.count
       if count >= 3
         if k == 1
@@ -50,12 +53,16 @@ class Round
         else
           score += (100 * count)
         end
+      elsif count == 2
+        pairs << v
       else
         new_score = (mapping[k].to_i * count)
         score += new_score
         dice_count -= count unless new_score.zero?
       end
     end
+
+    return three_pairs(values) if pairs.size == 3
 
     {
       score: score,
@@ -75,5 +82,13 @@ class Round
 
   def values(grouped_by_value)
     grouped_by_value.map { |k, v| v.map { |dice| dice.value } }.flatten
+  end
+
+  def three_pairs(values)
+    { score: 1500, values: values, remaining_dice_count: 0 }
+  end
+
+  def pharcle
+    { score: 3000, values: PHARCLE, remaining_dice_count: 0 }
   end
 end
