@@ -3,10 +3,6 @@ class Dice
 
   def initialize(dice_number)
     @dice_number = dice_number
-    @value = roll
-  end
-
-  def roll
-    value = (1..6).to_a.sample
+    @value = rand(1..6)
   end
 end

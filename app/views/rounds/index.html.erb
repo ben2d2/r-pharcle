@@ -1,0 +1,9 @@
+<h1><a href="http://localhost:3000/rounds">Roll</a>...</h1>
+<h3>Total: <%= @roll_em[:total] %></h3>
+<% @roll_em[:data].each do |k, v| %>
+  <p>Turn <%= k %>: <%= v[:score] %> pts.<br>
+    <% v[:values].each do |v| %>
+      <%= image_tag "dice-#{v}", class: "dice" %>
+    <% end %>
+  </p>
+<% end %>
