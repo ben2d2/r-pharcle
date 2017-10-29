@@ -32,10 +32,14 @@ class Round
   end
 
   def score_for(grouped_by_value, dice_count)
-    score = 0
     values = values(grouped_by_value)
     return pharcle if values.sort == PHARCLE
     return three_pairs if has_three_pairs?(grouped_by_value)
+    score_it(grouped_by_value, values, dice_count)
+  end
+
+  def score_it(grouped_by_value, values, dice_count)
+    score = 0
     grouped_by_value.each do |k, v|
       count = v.count
       if count >= 3
@@ -60,17 +64,11 @@ class Round
         dice_count -= count unless new_score.zero?
       end
     end
-
     {
       score: score,
       values: values,
       remaining_dice_count: dice_count
     }
-  end
-
-  def sum_after_three(key, value)
-    sum_of_value = value.reduce(:+)
-    (mapping.fetch(key, 0) * (sum_of_value - (key * 3)))
   end
 
   def mapping
