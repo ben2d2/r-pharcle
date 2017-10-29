@@ -34,7 +34,7 @@ class Round
   def score_for(grouped_by_value, dice_count)
     values = values(grouped_by_value)
     return pharcle if values.sort == PHARCLE
-    return three_pairs if has_three_pairs?(grouped_by_value)
+    return three_pairs(values) if has_three_pairs?(grouped_by_value)
     score_it(grouped_by_value, values, dice_count)
   end
 
