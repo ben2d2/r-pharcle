@@ -1,10 +1,25 @@
 <h1>Game #<%= @game.id %></h1>
-<p><%= @game.created_at.strftime("%m-%d-%Y") %></p>
+
+<%= form_for @game_player, html: { class: "form-inline" } do |f| %>
+  <%= f.collection_select :player_id, Player.all, :id, :username, class: "form-control" %>
+  <%= f.hidden_field :game_id, value: params[:id] %>
+  <%= f.hidden_field :player_number, value: (@game.players.count + 1) %>
+  <%= f.submit class: "btn"%>
+<% end %>
+
+<%= form_for @player, html: { class: "form-inline" } do |f| %>
+  <%= f.label :username %>
+  <%= f.text_field :username, class: "form-control" %>
+  <%= f.hidden_field :game_id, value: params[:id] %>
+  <%= f.hidden_field :player_number, value: (@game.players.count + 1) %>
+  <%= f.submit class: "btn" %>
+<% end %>
+
 <table class="table">
   <thead>
     <th>Round</th>
       <% @game.players.each do |player| %>
-        <th><%= player.username %></th>
+        <th><%= player.game_players.first.player_number %> <%= player.username.present? ? player.username : player.first_name %></th>
       <% end %>
   </thead>
 </table>

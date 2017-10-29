@@ -3,7 +3,6 @@
 <table class="table">
   <thead>
     <th>Game #</th>
-    <th>Start Date</th>
     <th>Player Count</th>
     <th></th>
   </thead>
@@ -11,8 +10,7 @@
     <% @games.each do |game| %>
       <tr>
         <td><%= game.id %></td>
-        <td><%= game.created_at.strftime("%m-%d-%Y") %></td>
-        <td><%= game.players.map(&:username).join(", ") %></td>
+        <td><%= game.players.count %></td>
         <td><%= link_to "Continue Playing", game_path(game) %></td>
       </tr>
     <% end %>

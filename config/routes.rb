@@ -16,6 +16,9 @@ Rails.application.routes.draw do
 
     resources :games
 
+    resources :players
+    resources :game_players
+
   # Example resource route with options:
   #   resources :products do
   #     member do
