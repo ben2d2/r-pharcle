@@ -3,6 +3,11 @@ class GamesController < ApplicationController
     @games = Game.all
   end
 
+  def create
+    game = Game.create
+    redirect_to game_path(game)
+  end
+
   def show
     @player = Player.new
     @game_player = GamePlayer.new
