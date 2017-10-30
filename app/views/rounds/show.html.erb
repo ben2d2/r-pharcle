@@ -1,12 +1,13 @@
 <h1>Game #<%= @round.game.id %> - <%= @round.player.username %></h1>
+<h1>Total: <%= @round_turns.map { |key, value| value["score"] }.reduce(0, :+) %> pts.</h1>
 <% @round_turns.each do |turn_number, turn_stats| %>
-  <h4><small><%= turn_number %>:</small>  <%= turn_stats["score"] %> pts.</h4>
+  <h3><small><%= turn_number %>:</small>  <%= turn_stats["score"] %> pts.</h3>
     <% turn_stats["values"].each do |i| %>
       <%= image_tag "dice-#{i}", class: "dice-face" %>
     <% end %>
-    <% unless turn_number.to_i == 4 %>
+    <% unless turn_number.to_i == 4 || turn_stats["remaining_dice_count"].zero? %>
       <%= link_to "Roll again", round_path(@round, turn: (turn_number.to_i + 1)) %>
-      <%= link_to "Stay", round_path(@round, stay: true, stopped_at: turn_number.to_i) %>
     <% end %>
+    <%= link_to "Stay", round_path(@round, stay: true, stopped_at: turn_number.to_i) %>
   </p>
 <% end %>

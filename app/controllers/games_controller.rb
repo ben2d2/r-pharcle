@@ -19,7 +19,7 @@ class GamesController < ApplicationController
 
   private
   def calculate_scores
-    players = @game.players
+    players = @game.players.order('game_players.player_number')
     header = players.pluck(:username).unshift("Round")
     array = @game.rounds.group_by(&:number).sort_by { |k, v| v }.map do |k, v|
       scores = [k]
@@ -30,10 +30,9 @@ class GamesController < ApplicationController
       end
       scores
     end.unshift(header)
-
     footer = ["Total"]
-    @game.rounds.group_by(&:player_id).each do |player_id, rounds|
-      players.each do |player|
+    players.each do |player|
+      @game.rounds.group_by(&:player_id).each do |player_id, rounds|
         footer << rounds.map(&:total).reduce(0, :+) if player_id == player.id
       end
     end
