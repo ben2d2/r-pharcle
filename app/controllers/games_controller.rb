@@ -40,7 +40,7 @@ class GamesController < ApplicationController
     if @game.rounds.blank?
       @round_number = 1
     else
-      grouped_by_number = @game.rounds.group_by { |r| r.number }
+      grouped_by_number = @game.rounds.group_by { |r| r.number }.sort_by { |k, v| k }
       grouped_by_number.each do |k, v|
         if v.to_a.count < @game.players.count
           @round_number = k
