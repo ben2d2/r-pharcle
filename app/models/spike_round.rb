@@ -56,7 +56,7 @@ class SpikeRound
           score += (50 * count)
           dice_count -= count
         else
-          score += (100 * count)
+          score += (100 * k)
         end
       else
         new_score = (mapping[k].to_i * count)
