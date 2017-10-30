@@ -1,0 +1,9 @@
+<h1>Game #<%= @round.game.id %> - <%= @round.player.username %></h1>
+<h3>Total: <%= @round.total %></h3>
+<% @round.turns.each do |k, v| %>
+  <h4><small><%= k %>:</small>  <%= v[:score] %> pts.</h4>
+    <% v[:values].each do |v| %>
+      <%= image_tag "dice-#{v}", class: "dice-face" %>
+    <% end %>
+  </p>
+<% end %>
