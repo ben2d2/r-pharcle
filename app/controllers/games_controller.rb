@@ -16,10 +16,10 @@ class GamesController < ApplicationController
   def calculate_scores
     players = @game.players
     header = players.pluck(:username).unshift("Round")
-    array = @game.rounds.group_by(&:number).map do |number, rounds|
-      scores = [number]
+    array = @game.rounds.group_by(&:number).sort_by { |k, v| v }.map do |k, v|
+      scores = [k]
       players.map do |player|
-        rounds.each do |round|
+        v.each do |round|
           scores << round.total if round.player_id == player.id
         end
       end
