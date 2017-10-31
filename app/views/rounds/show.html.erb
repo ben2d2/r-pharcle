@@ -1,5 +1,5 @@
 <h1>Game #<%= @round.game.id %> - <%= @round.player.username %></h1>
-<h1>Total: <%= @round_turns.map { |key, value| value["score"] }.reduce(0, :+) %> pts.</h1>
+<h1>Total: <%= @round.total %> pts.</h1>
 <% @round_turns.each do |turn_number, turn_stats| %>
   <h3><small><%= turn_number %>:</small>  <%= turn_stats["score"] %> pts.</h3>
     <% turn_stats["values"].each do |i| %>
