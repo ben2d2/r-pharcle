@@ -12,30 +12,25 @@ class RoundsController < ApplicationController
 
   def show
     @round = Round.find(params[:id])
+    turn = TurnHandler.new(@round, params)
     if params[:stay]
-      range = (1..params[:stopped_at].to_i)
-      turns = @round.turns.select { |k, v| range.include?(k.to_i) }
-      @round.turns = turns
-      @round.total = turns.map { |k, v| v["score"] }.reduce(:+)
-      @round.save
-      redirect_to game_path(@round.game)
+      turn.stay
+      success_path
     else
-      first_score = @round.turns.first.last["score"]
+      round_turns = @round.turns
+      first_score = round_turns.first.last["score"]
       if [1500, 3000].include?(first_score)
-        @round.total = first_score
-        @round.save
-        redirect_to game_path(@round.game)
+        turn.save_special
+        success_path
       end
       range = params[:turn].present? ? (1..params[:turn].to_i).to_a : [1]
-      @round_turns = @round.turns.select { |k, v| range.include?(k.to_i) }
+      @round_turns = round_turns.select { |k, v| range.include?(k.to_i) }
       if @round_turns[params.fetch(:turn, 1).to_s]["score"].zero?
-        @round.total = 0
-        @round.save
-        redirect_to game_path(@round.game)
+        turn.save_zero
+        success_path
       elsif params[:turn].present? && params[:turn].to_i == 4
-        @round.total = @round_turns.map { |k, v| v["score"] }.reduce(:+)
-        @round.save
-        redirect_to game_path(@round.game)
+        turn.save_all_turns
+        success_path
       end
     end
   end
@@ -43,5 +38,9 @@ class RoundsController < ApplicationController
   private
   def round_params
     params.require(:round).permit(:game_id, :player_id, :number)
+  end
+
+  def success_path
+    redirect_to game_path(@round.game)
   end
 end
