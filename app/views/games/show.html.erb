@@ -36,11 +36,9 @@
     <td></td>
     <% @game.players.each do |player| %>
       <td>
-        <%= form_for @round do |f| %>
-          <%= f.hidden_field :game_id, value: @game.id %>
-          <%= f.hidden_field :player_id, value: player.id %>
-          <%= f.hidden_field :number, value: @round_number %>
-          <%= f.submit %>
+        <% round_data = { game_id: @game.id, player_id: player.id, number: @round_number } %>
+        <% unless @game.rounds.find_by(round_data) %>
+          <%= link_to "Roll #{player.username} Round #{@round_number}", rounds_path({ round: round_data }), method: :post %>
         <% end %>
       </td>
     <% end %>
