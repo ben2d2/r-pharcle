@@ -1,8 +1,8 @@
-class SpikeRound
+class Turns
   PHARCLE = [1, 2, 3, 4, 5, 6]
   THREE_PAIRS = [2, 2, 2]
 
-  def turn
+  def create
     grouped_by_value = roll(6)
     turn_one = score_for(grouped_by_value, 6)
     hash = { "1" => turn_one }
