@@ -17,30 +17,43 @@
 <% end %>
 
 <table class="table">
-  <% @scoreboard.each_with_index do |row, i| %>
-    <% if i == 0 %>
-      <thead>
+  <thead>
+    <% @scoreboard[:header_row].each do |cell| %>
+      <th><%= cell %></th>
+    <% end %>
+  </thead>
+  <thead>
+    <% @scoreboard[:totals_row].each do |cell| %>
+      <th><%= cell %></th>
+    <% end %>
+  </thead>
+  <tbody>
+    <% @scoreboard[:data_rows].each do |row| %>
+      <tr>
         <% row.each do |cell| %>
-          <th><%= cell %></th>
+          <td>
+            <% if cell.is_a? Integer %>
+              <%= cell %>
+            <% else %>
+              <%= link_to "Roll", rounds_path({ round: cell[:form_data] }), method: :post %>
+            <% end %>
+            </td>
         <% end %>
-      </thead>
-    <% else %>
-    <tbody>
-      <% row.each do |cell| %>
-        <td><%= cell %></td>
-      <% end %>
-    </tbody>
+      </tr>
     <% end %>
-  <% end %>
-  <tr>
-    <td></td>
-    <% @game.players.each do |player| %>
-      <td>
-        <% round_data = { game_id: @game.id, player_id: player.id, number: @round_number } %>
-        <% unless @game.rounds.find_by(round_data) %>
-          <%= link_to "Roll #{player.username} Round #{@round_number}", rounds_path({ round: round_data }), method: :post %>
+
+    <% unless @scoreboard[:add_next_row] %>
+      <tr>
+        <% @scoreboard[:next_round_row].each do |cell| %>
+            <td>
+              <% if cell.is_a? Integer %>
+                <%= cell %>
+              <% else %>
+                <%= link_to "Roll", rounds_path({ round: cell[:form_data] }), method: :post %>
+              <% end %>
+            </td>
         <% end %>
-      </td>
+      </tr>
     <% end %>
-  </tr>
+  </tbody>
 </table>
