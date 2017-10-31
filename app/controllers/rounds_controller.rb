@@ -1,8 +1,13 @@
 class RoundsController < ApplicationController
-  def new
-    @game = Game.find(params[:game_id])
-    @player = Player.find(params[:player_id])
-    @round = Round.new
+  def create
+    turns = Turns.new.create
+    round = Round.new(round_params)
+    round.turns = turns[:data]
+    if round.save
+      redirect_to round_path(round)
+    else
+      redirect_to new_round_path({ game_id: round.game_id, player_id: round.player_id })
+    end
   end
 
   def show
@@ -35,19 +40,8 @@ class RoundsController < ApplicationController
     end
   end
 
-  def create
-    turns = SpikeRound.new.turn
-    round = Round.new(round_params)
-    round.turns = turns[:data]
-    if round.save
-      redirect_to round_path(round)
-    else
-      redirect_to new_round_path({ game_id: round.game_id, player_id: round.player_id })
-    end
-  end
-
   private
   def round_params
-    @round_params ||= params.require(:round).permit(:game_id, :player_id, :number)
+    params.require(:round).permit(:game_id, :player_id, :number)
   end
 end
