@@ -11,6 +11,9 @@ class TurnHandler
     if stayed?
       update_round
       response
+    elsif high_roller?
+      update_round
+      response
     elsif score_zero?
       update_round(0)
       response
@@ -25,8 +28,8 @@ class TurnHandler
 
   def response
     if high_roller?
-      message = turn[:score] == 1500 ? " Three Pairs " : " a Pharcle "
-      { game_path: true, message: "Wow #{message} #{round.total}pts!" }
+      type = turn["score"] == 1500 ? " Three Pairs " : " a Pharcle "
+      { game_path: true, message: "Wow #{type} #{round.total}pts!" }
     elsif stayed?
       { game_path: true, message: "You stayed at #{round.total}pts!" }
     elsif score_zero?
@@ -69,6 +72,6 @@ class TurnHandler
   end
 
   def high_roller?
-    [1500, 3000].include?(turn["score"])
+    [1500, 3000].include?(turn[:score])
   end
 end

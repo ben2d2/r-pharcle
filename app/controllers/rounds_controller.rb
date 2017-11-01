@@ -4,6 +4,7 @@ class RoundsController < ApplicationController
     turn = Turn.new(6).create
     handler = TurnHandler.new(round, turn, params).save
     if handler[:game_path]
+      flash[:notice] = handler[:message]
       redirect_to game_path(round.game)
     else
       redirect_to round_path(round)

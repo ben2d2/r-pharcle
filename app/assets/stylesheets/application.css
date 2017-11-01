@@ -16,10 +16,21 @@
 .dice-face {
    display: inline-block;
    margin: 5px;
-   padding: 5px;
+   padding: 3px;
    height: 40px;
    width: 40px;
    text-align: center;
    border: 1px solid #000000;
-   border-radius: 5px;
+   border-radius: 3px;
  }
+
+ .dice-face-sm {
+    display: inline-block;
+    margin: 2px;
+    padding: 2px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border: 1px solid #000000;
+    border-radius: 2px;
+  }
