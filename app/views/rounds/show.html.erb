@@ -5,9 +5,18 @@
     <% turn_stats["values"].each do |i| %>
       <%= image_tag "dice-#{i}", class: "dice-face" %>
     <% end %>
+    Remaining Dice: <%= turn_stats["remaining_dice_count"] %>
     <% unless turn_number.to_i == 4 || turn_stats["remaining_dice_count"].zero? %>
-      <%= link_to "Roll again", round_path(@round, turn: (turn_number.to_i + 1)) %>
+      <%= link_to "Roll again", round_path(
+        @round,
+        turn: (turn_number.to_i + 1),
+        remaining_dice_count: turn_stats["remaining_dice_count"]),
+      method: :put %>
     <% end %>
-    <%= link_to "Stay", round_path(@round, stay: true, stopped_at: turn_number.to_i) %>
+    <%= link_to "Stay", round_path(@round,
+      stay: true,
+      turn: (turn_number.to_i + 1),
+      remaining_dice_count: turn_stats["remaining_dice_count"]),
+    method: :put %>
   </p>
 <% end %>

@@ -2,7 +2,7 @@ class DiceSet
   attr_reader :dice_count
 
   def initialize(dice_count=6)
-    @dice_count = dice_count
+    @dice_count = dice_count.to_i
   end
 
   def collection
