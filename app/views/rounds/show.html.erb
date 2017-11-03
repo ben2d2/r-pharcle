@@ -1,22 +1,55 @@
-<h1>Game #<%= @round.game.id %> - <%= @round.player.username %></h1>
+<table class="table">
+  <thead>
+    <% @scoreboard.header_row.each do |cell| %>
+      <th class="<%=  @round.player.username== cell ? "active" : "" %>"><%= cell %></th>
+    <% end %>
+  </thead>
+  <thead>
+    <% @scoreboard.totals_row.each do |cell| %>
+      <th><%= cell %></th>
+    <% end %>
+  </thead>
+  </tbody>
+</table>
+
 <h1>Total: <%= @round.total %> pts.</h1>
 <% @round_turns.each do |turn_number, turn_stats| %>
-  <h3><small><%= turn_number %>:</small>  <%= turn_stats["score"] %> pts.</h3>
-    <% turn_stats["values"].each do |i| %>
-      <%= image_tag "dice-#{i}", class: "dice-face" %>
-    <% end %>
-    Remaining Dice: <%= turn_stats["remaining_dice_count"] %>
-    <% unless turn_number.to_i == 4 || turn_stats["remaining_dice_count"].zero? %>
-      <%= link_to "Roll again", round_path(
-        @round,
-        turn: (turn_number.to_i + 1),
-        remaining_dice_count: turn_stats["remaining_dice_count"]),
-      method: :put %>
-    <% end %>
-    <%= link_to "Stay", round_path(@round,
-      stay: true,
-      turn: (turn_number.to_i + 1),
-      remaining_dice_count: turn_stats["remaining_dice_count"]),
-    method: :put %>
-  </p>
+  <div class="row">
+    <div class="col-6">
+      <% turn_stats["values"].each do |i| %>
+        <%= image_tag "dice-#{i}", class: "dice-face" %>
+      <% end %>
+    </div>
+    <div class="col-2">
+      <div class="turn-score-badge">
+        <%= turn_stats["score"] %> pts.
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="dice-remaining">
+        <%= turn_stats["remaining_dice_count"] %> <small>dice remaining</small>
+      </div>
+    </div>
+  </div>
+
+  <% if turn_number == params.fetch(:turn, "1") %>
+    <div class="row">
+      <div class="col-12">
+        <% unless turn_number.to_i == 4 || turn_stats["remaining_dice_count"].zero? %>
+          <%= link_to "Roll", round_path(
+            @round,
+            turn: (turn_number.to_i + 1),
+            remaining_dice_count: turn_stats["remaining_dice_count"]),
+          method: :put,
+          class: "btn btn-primary" %>
+        <% end %>
+        <%= link_to "Stay", round_path(@round,
+          stay: true,
+          turn: (turn_number.to_i + 1),
+          remaining_dice_count: turn_stats["remaining_dice_count"]),
+        method: :put,
+        class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
 <% end %>

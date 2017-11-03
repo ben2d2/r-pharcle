@@ -28,19 +28,19 @@
     <% end %>
   </thead>
   <tbody>
-    <% @scoreboard[:data_rows].each do |row| %>
+    <%# @scoreboard[:data_rows].each do |row| %>
       <tr>
-        <% row.each do |cell| %>
+        <% @scoreboard[:data_rows].last.each do |cell| %>
           <td>
             <% if cell.is_a? Integer %>
               <%= cell %>
             <% else %>
-              <%= link_to "Roll", rounds_path({ round: cell[:form_data] }), method: :post %>
+              <%= link_to "Roll", rounds_path({ round: cell[:form_data] }), method: :post, class: "btn btn-primary" %>
             <% end %>
             </td>
         <% end %>
       </tr>
-    <% end %>
+    <%# end %>
 
     <% unless @scoreboard[:add_next_row] %>
       <tr>
@@ -49,7 +49,7 @@
               <% if cell.is_a? Integer %>
                 <%= cell %>
               <% else %>
-                <%= link_to "Roll", rounds_path({ round: cell[:form_data] }), method: :post %>
+                <%= link_to "Roll", rounds_path({ round: cell[:form_data] }), method: :post, class: "btn btn-primary" %>
               <% end %>
             </td>
         <% end %>

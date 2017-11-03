@@ -27,6 +27,7 @@ class RoundsController < ApplicationController
     @round = Round.find(params[:id])
     range = params[:turn].present? ? (1..params[:turn].to_i).to_a : [1]
     @round_turns = @round.turns.select { |k, v| range.include?(k.to_i) }
+    @scoreboard = ScoreboardPresenter.new(@round.game)
   end
 
   private

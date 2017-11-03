@@ -16,9 +16,9 @@
 .dice-face {
    display: inline-block;
    margin: 5px;
-   padding: 3px;
-   height: 40px;
-   width: 40px;
+   padding: 5px;
+   height: 60px;
+   width: 60px;
    text-align: center;
    border: 1px solid #000000;
    border-radius: 3px;
@@ -34,3 +34,27 @@
     border: 1px solid #000000;
     border-radius: 2px;
   }
+
+  .row {
+    margin-bottom: 30px;
+  }
+
+th.active {
+  background-color: #99D1D5;
+}
+
+td.active {
+  background-color: #DCF5F7;
+}
+
+.turn-score-badge {
+  text-align: center;
+  line-height: 60px;
+  font-size: 24px;
+}
+
+.dice-remaining {
+  text-align: center;
+  line-height: 60px;
+  font-size: 24px;
+}

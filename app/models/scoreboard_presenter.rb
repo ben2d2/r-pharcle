@@ -8,7 +8,7 @@ class ScoreboardPresenter
 
   def to_h
     {
-      header_row: players.pluck(:username).unshift("Round"),
+      header_row: header_row,
       totals_row: totals_row,
       data_rows: data_rows,
       next_round_row: next_round_row,
@@ -16,7 +16,10 @@ class ScoreboardPresenter
     }
   end
 
-  private
+  def header_row
+    players.pluck(:username).unshift("Round")
+  end
+
   def data_rows
     grouped_and_sorted_rounds.map do |k, rounds|
       row = [k]
@@ -43,6 +46,7 @@ class ScoreboardPresenter
     players.map { |player| form_data_for(player.id) }.unshift(round_number)
   end
 
+  private
   def form_data_for(player_id)
     { form_data: { game_id: game.id, player_id: player_id, number: round_number } }
   end
