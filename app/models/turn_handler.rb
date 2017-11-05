@@ -8,7 +8,10 @@ class TurnHandler
   end
 
   def save
-    if stayed?
+    if game_over?
+      @round.game.update_attribute(updated_at: Time.now)
+      response
+    elsif stayed?
       update_round
       response
     elsif high_roller?
@@ -27,7 +30,9 @@ class TurnHandler
   end
 
   def response
-    if high_roller?
+    if game_over?
+      { game_path: true, message: "Game Over!", flash_type: "success" }
+    elsif high_roller?
       type = turn[:score] == 1500 ? " Three Pairs " : " a Pharcle "
       { game_path: true, message: "Wow #{type} #{round.total}pts!", flash_type: "success" }
     elsif stayed?
@@ -73,5 +78,20 @@ class TurnHandler
 
   def high_roller?
     [1500, 3000].include?(turn[:score])
+  end
+
+  def game_over?
+    index = @round.game.game_players.find_by(player_id: @round.player.id).player_number
+    scoreboard.totals_row[index] >= 10000 && last_player?
+  end
+
+  def last_player?
+    game = @round.game
+    players_count = game.players.count
+    (game.rounds.where(number: @round.number).count + 1) == players_count
+  end
+
+  def scoreboard
+    ScoreboardPresenter.new(@round.game)
   end
 end

@@ -48,7 +48,7 @@ class Turn
       end
     end
     {
-      score: score,
+      score: 3000,
       values: values,
       remaining_dice_count: remaining_dice_count
     }

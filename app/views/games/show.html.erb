@@ -45,18 +45,20 @@
       <% end %>
     </tr>
 
-    <% unless @scoreboard[:add_next_row] %>
-      <tr>
-        <% @scoreboard[:next_round_row].each.with_index do |cell, i| %>
-            <td class="<%= i > 0 ? 'text-center' : 'first-column' %>">
-              <% if cell.is_a? Integer %>
-                <%= cell %>
-              <% else %>
-                <%= link_to "Roll", rounds_path({ round: cell[:form_data] }), method: :post, class: "btn btn-primary btn-lg btn-block" %>
-              <% end %>
-            </td>
-        <% end %>
-      </tr>
+    <% unless @game.over? %>
+      <% unless @scoreboard[:add_next_row] %>
+        <tr>
+          <% @scoreboard[:next_round_row].each.with_index do |cell, i| %>
+              <td class="<%= i > 0 ? 'text-center' : 'first-column' %>">
+                <% if cell.is_a? Integer %>
+                  <%= cell %>
+                <% else %>
+                  <%= link_to "Roll", rounds_path({ round: cell[:form_data] }), method: :post, class: "btn btn-primary btn-lg btn-block" %>
+                <% end %>
+              </td>
+          <% end %>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

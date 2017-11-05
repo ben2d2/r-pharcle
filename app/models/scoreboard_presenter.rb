@@ -28,7 +28,7 @@ class ScoreboardPresenter
         if player_round = by_player[player.id]
           row << player_round.first.total
         else
-          row << form_data_for(player.id)
+          row << form_data_for(player.id) unless @game.over?
         end
       end
       row
