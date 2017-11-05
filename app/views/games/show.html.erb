@@ -40,7 +40,7 @@
             <%= cell %>
           <% else %>
             <% unless @game.over? %>
-              <%= link_to "Roll", rounds_path({ round: cell[:form_data] }), method: :post, class: "btn btn-primary btn-lg btn-block" %>
+              <%= link_to "Start Turn", rounds_path({ round: cell[:form_data] }), method: :post, class: "btn btn-primary btn-lg btn-block" %>
             <% end %>
           <% end %>
           </td>
@@ -55,7 +55,7 @@
                 <% if cell.is_a? Integer %>
                   <%= cell %>
                 <% else %>
-                  <%= link_to "Roll", rounds_path({ round: cell[:form_data] }), method: :post, class: "btn btn-primary btn-lg btn-block" %>
+                  <%= link_to "Start Turn", rounds_path({ round: cell[:form_data] }), method: :post, class: "btn btn-primary btn-lg btn-block" %>
                 <% end %>
               </td>
           <% end %>
