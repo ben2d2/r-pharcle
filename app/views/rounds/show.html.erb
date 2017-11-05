@@ -5,14 +5,14 @@
 
 <% round_turns.each do |turn_number, turn_stats| %>
   <div class="row">
-    <div class="col-4">
+    <div class="col-9">
       <% turn_stats["values"].each do |i| %>
         <%= image_tag "dice-#{i}", class: "dice-face" %>
       <% end %>
     </div>
-    <div class="col-2">
+    <div class="col-3">
       <div class="turn-score-badge">
-        <strong><%= turn_stats["score"] %> pts.</strong>
+        <strong class="badge badge-success badge-lg"><%= turn_stats["score"] %> pts.</strong>
       </div>
     </div>
   </div>

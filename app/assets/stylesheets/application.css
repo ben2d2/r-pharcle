@@ -92,3 +92,9 @@ table {
   margin-bottom: 15px;
   padding: 5px
 }
+
+.badge-lg {
+  margin-top: 7px;
+  margin-bottom: 0px;
+  font-size: 38px;
+}
