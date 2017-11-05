@@ -35,6 +35,10 @@ class ScoreboardPresenter
     end
   end
 
+  def last_row
+    data_rows.last || []
+  end
+
   def totals_row
     players.map do |player|
       rounds = rounds_by_player.fetch(player.id, [])
@@ -44,6 +48,10 @@ class ScoreboardPresenter
 
   def next_round_row
     players.map { |player| form_data_for(player.id) }.unshift(round_number)
+  end
+
+  def add_next_row?
+    game_rounds.where(number: round_number).any?
   end
 
   private
@@ -65,10 +73,6 @@ class ScoreboardPresenter
 
   def rounds_by_player(rounds=game_rounds)
     rounds.group_by(&:player_id)
-  end
-
-  def add_next_row?
-    game_rounds.where(number: round_number).any?
   end
 
   def determine_round_number

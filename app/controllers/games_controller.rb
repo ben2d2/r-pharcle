@@ -1,18 +1,17 @@
 class GamesController < ApplicationController
-  def index
-    @games = Game.all
-  end
+  expose(:games)
+  expose(:game)
+  expose(:player) { Player.new }
+  expose(:game_player) { GamePlayer.new }
+  expose(:scoreboard) { ScoreboardPresenter.new(game) }
+  expose(:flash_type) { params[:flash_type] }
+  def index; end
 
   def create
-    game = Game.create
-    redirect_to game_path(game)
+    if game.save
+      redirect_to game_path(game)
+    end
   end
 
-  def show
-    @player = Player.new
-    @game_player = GamePlayer.new
-    @game = Game.find(params[:id])
-    @scoreboard = ScoreboardPresenter.new(@game).to_h
-    @flash_type = params[:flash_type]
-  end
+  def show; end
 end

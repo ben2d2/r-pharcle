@@ -1,19 +1,19 @@
-<% unless @game.rounds.any? %>
+<% unless game.rounds.any? %>
 <div class="row">
   <div class="col-6">
-    <%= form_for @game_player, html: { class: "form-inline" } do |f| %>
+    <%= form_for game_player, html: { class: "form-inline" } do |f| %>
       <%= f.collection_select :player_id, Player.all, :id, :username, class: "form-control" %>
       <%= f.hidden_field :game_id, value: params[:id] %>
-      <%= f.hidden_field :player_number, value: (@game.players.count + 1) %>
+      <%= f.hidden_field :player_number, value: (game.players.count + 1) %>
       <%= f.submit "Select a Player", class: "btn btn-primary btn-lg" %>
     <% end %>
   </div>
   <div class="col-6">
-      <%= form_for @player, html: { class: "form-inline" } do |f| %>
+      <%= form_for player, html: { class: "form-inline" } do |f| %>
         <%= f.label :username %>
         <%= f.text_field :username, class: "form-control" %>
         <%= f.hidden_field :game_id, value: params[:id] %>
-        <%= f.hidden_field :player_number, value: (@game.players.count + 1) %>
+        <%= f.hidden_field :player_number, value: (game.players.count + 1) %>
         <%= f.submit "Add New Player", class: "btn btn-primary btn-lg" %>
       <% end %>
     </div>
@@ -22,24 +22,23 @@
 
 <table class="table table-bodered">
   <tr>
-    <% @scoreboard[:header_row].each.with_index do |cell, i| %>
+    <% scoreboard.header_row.each.with_index do |cell, i| %>
       <td class="<%= i > 0 ? 'text-center' : 'first-column' %>"><%= cell %></td>
     <% end %>
   </tr>
   <tr>
-    <% @scoreboard[:totals_row].each.with_index do |cell, i| %>
+    <% scoreboard.totals_row.each.with_index do |cell, i| %>
       <th class="<%= i > 0 ? 'text-center' : 'first-column' %>"><%= cell %></th>
     <% end %>
   </tr>
   <tbody>
     <tr>
-      <% last_row = @scoreboard.fetch(:data_rows, []).last || [] %>
-      <% last_row.each.with_index do |cell, i| %>
+      <% scoreboard.last_row.each.with_index do |cell, i| %>
         <td class="<%= i > 0 ? 'text-center' : 'first-column' %>">
           <% if cell.is_a? Integer %>
             <%= cell %>
           <% else %>
-            <% unless @game.over? %>
+            <% unless game.over? %>
               <%= link_to "Start Turn", rounds_path({ round: cell[:form_data] }), method: :post, class: "btn btn-primary btn-lg btn-block" %>
             <% end %>
           <% end %>
@@ -47,10 +46,10 @@
       <% end %>
     </tr>
 
-    <% unless @game.over? %>
-      <% unless @scoreboard[:add_next_row] %>
+    <% unless game.over? %>
+      <% unless scoreboard.add_next_row? %>
         <tr>
-          <% @scoreboard[:next_round_row].each.with_index do |cell, i| %>
+          <% scoreboard.next_round_row.each.with_index do |cell, i| %>
               <td class="<%= i > 0 ? 'text-center' : 'first-column' %>">
                 <% if cell.is_a? Integer %>
                   <%= cell %>
