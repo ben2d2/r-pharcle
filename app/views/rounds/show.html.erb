@@ -1,18 +1,20 @@
-<table class="table">
-  <thead>
-    <% @scoreboard.header_row.each do |cell| %>
-      <th class="<%=  @round.player.username== cell ? "active" : "" %>"><%= cell %></th>
+<table class="table table-bordered">
+  <tr>
+    <% @scoreboard.header_row.each.with_index do |cell, i| %>
+      <td
+        class="<%= i > 0 ? 'text-center' : 'first-column' %>
+        <%=  @round.player.username== cell ? "active" : "" %>"
+      ><%= cell %></td>
     <% end %>
-  </thead>
-  <thead>
-    <% @scoreboard.totals_row.each do |cell| %>
-      <th><%= cell %></th>
+  </tr>
+  <tr>
+    <% @scoreboard.totals_row.each.with_index do |cell, i| %>
+      <th class="<%= i > 0 ? 'text-center' : 'first-column' %>"><%= cell %></th>
     <% end %>
-  </thead>
+  </tr>
   </tbody>
 </table>
 
-<h1>Total: <%= @round.total %> pts.</h1>
 <% @round_turns.each do |turn_number, turn_stats| %>
   <div class="row">
     <div class="col-6">
@@ -34,21 +36,23 @@
 
   <% if turn_number == params.fetch(:turn, "1") %>
     <div class="row">
-      <div class="col-12">
+      <div class="col-6">
         <% unless turn_number.to_i == 4 || turn_stats["remaining_dice_count"].zero? %>
           <%= link_to "Roll", round_path(
             @round,
             turn: (turn_number.to_i + 1),
             remaining_dice_count: turn_stats["remaining_dice_count"]),
           method: :put,
-          class: "btn btn-primary" %>
+          class: "btn btn-primary btn-lg btn-block" %>
         <% end %>
+      </div>
+      <div class="col-6">
         <%= link_to "Stay", round_path(@round,
           stay: true,
           turn: (turn_number.to_i + 1),
           remaining_dice_count: turn_stats["remaining_dice_count"]),
         method: :put,
-        class: "btn btn-primary" %>
+        class: "btn btn-secondary btn-lg btn-block" %>
       </div>
     </div>
   <% end %>

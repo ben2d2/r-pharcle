@@ -7,9 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="header">
+  <%= image_tag 'logo' %>
+</div>
 <div class="container-fluid">
   <% flash.each do |name, msg| %>
-    <%= content_tag :div, msg, class: "alert alert-info" %>
+    <%= content_tag :div, msg, class: "alert alert-#{@flash_type ? @flash_type : 'success'}" %>
   <% end %>
   <%= yield %>
 </div>

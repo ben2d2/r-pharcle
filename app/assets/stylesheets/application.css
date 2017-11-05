@@ -40,11 +40,13 @@
   }
 
 th.active {
-  background-color: #99D1D5;
+  background-color: #75B2D2;
+  color: #fff;
 }
 
 td.active {
-  background-color: #DCF5F7;
+  background-color: #75B2D2;
+  color: #fff;
 }
 
 .turn-score-badge {
@@ -57,4 +59,36 @@ td.active {
   text-align: center;
   line-height: 60px;
   font-size: 24px;
+}
+
+table {
+  font-size: 24px;
+}
+
+.alert {
+  font-size: 54px;
+}
+
+.first-column {
+  width: 100px;
+  color: #c5c5c5;
+}
+ select {
+   font-size: 24px;
+   margin: 20px;
+   padding: 10px;
+ }
+
+ input {
+   font-size: 24px;
+   margin: 20px;
+ }
+
+.header {
+  display: block;
+  background-color: #AFD275;
+  height: 60px;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 5px
 }

@@ -28,14 +28,14 @@ class TurnHandler
 
   def response
     if high_roller?
-      type = turn["score"] == 1500 ? " Three Pairs " : " a Pharcle "
-      { game_path: true, message: "Wow #{type} #{round.total}pts!" }
+      type = turn[:score] == 1500 ? " Three Pairs " : " a Pharcle "
+      { game_path: true, message: "Wow #{type} #{round.total}pts!", flash_type: "success" }
     elsif stayed?
-      { game_path: true, message: "You stayed at #{round.total}pts!" }
+      { game_path: true, message: "You stayed at #{round.total}pts!", flash_type: "info" }
     elsif score_zero?
-      { game_path: true, message: "Womp womp... You scored 0pts!" }
+      { game_path: true, message: "Womp womp... You scored 0pts!", flash_type: "danger" }
     elsif no_dice
-      { game_path: true, message: "You scored #{round.total}pts!" }
+      { game_path: true, message: "You scored #{round.total}pts!", flash_type: "info" }
     else
       {}
     end

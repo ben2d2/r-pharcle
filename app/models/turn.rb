@@ -39,7 +39,7 @@ class Turn
           remaining_dice_count -= count
         else
           score += (100 * k)
-          remaining_dice_count -= count
+          remaining_dice_count -= 3
         end
       else
         new_score = (mapping[k].to_i * count)

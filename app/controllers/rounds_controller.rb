@@ -5,9 +5,9 @@ class RoundsController < ApplicationController
     handler = TurnHandler.new(round, turn, params).save
     if handler[:game_path]
       flash[:notice] = handler[:message]
-      redirect_to game_path(round.game)
+      redirect_to game_path(round.game, { flash_type: handler[:flash_type] })
     else
-      redirect_to round_path(round)
+      redirect_to round_path(round, { flash_type: handler[:flash_type] })
     end
   end
 
@@ -17,9 +17,9 @@ class RoundsController < ApplicationController
     handler = TurnHandler.new(round, turn, params).save
     if handler[:game_path]
       flash[:notice] = handler[:message]
-      redirect_to game_path(round.game)
+      redirect_to game_path(round.game, { flash_type: handler[:flash_type] })
     else
-      redirect_to round_path(round, { turn: params[:turn] })
+      redirect_to round_path(round, { turn: params[:turn], flash_type: handler[:flash_type] })
     end
   end
 
