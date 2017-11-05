@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-6">
+    <%= form_for game_player, html: { class: "form-inline" } do |f| %>
+      <%= f.collection_select :player_id, Player.all, :id, :username, class: "form-control" %>
+      <%= f.hidden_field :game_id, value: params[:id] %>
+      <%= f.hidden_field :player_number, value: (game.players.count + 1) %>
+      <%= f.submit "Select a Player", class: "btn btn-primary btn-lg" %>
+    <% end %>
+  </div>
+  <div class="col-6">
+      <%= form_for player, html: { class: "form-inline" } do |f| %>
+        <%= f.label :username %>
+        <%= f.text_field :username, class: "form-control" %>
+        <%= f.hidden_field :game_id, value: params[:id] %>
+        <%= f.hidden_field :player_number, value: (game.players.count + 1) %>
+        <%= f.submit "Add New Player", class: "btn btn-primary btn-lg" %>
+      <% end %>
+    </div>
+  </div>
+</div>

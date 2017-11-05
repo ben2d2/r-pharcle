@@ -5,6 +5,10 @@ class Game < ActiveRecord::Base
 
   accepts_nested_attributes_for :game_players
 
+  def started?
+    self.rounds.any?
+  end
+
   def over?
     self.updated_at > self.created_at
   end
