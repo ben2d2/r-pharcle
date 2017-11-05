@@ -1,21 +1,21 @@
 <table class="table table-bordered">
   <tr>
-    <% @scoreboard.header_row.each.with_index do |cell, i| %>
+    <% scoreboard.header_row.each.with_index do |cell, i| %>
       <td
         class="<%= i > 0 ? 'text-center' : 'first-column' %>
-        <%=  @round.player.username== cell ? "active" : "" %>"
+        <%=  round.player.username== cell ? "active" : "" %>"
       ><%= cell %></td>
     <% end %>
   </tr>
   <tr>
-    <% @scoreboard.totals_row.each.with_index do |cell, i| %>
+    <% scoreboard.totals_row.each.with_index do |cell, i| %>
       <th class="<%= i > 0 ? 'text-center' : 'first-column' %>"><%= cell %></th>
     <% end %>
   </tr>
   </tbody>
 </table>
 
-<% @round_turns.each do |turn_number, turn_stats| %>
+<% round_turns.each do |turn_number, turn_stats| %>
   <div class="row">
     <div class="col-6">
       <% turn_stats["values"].each do |i| %>
@@ -39,7 +39,7 @@
       <div class="col-6">
         <% unless turn_number.to_i == 4 || turn_stats["remaining_dice_count"].zero? %>
           <%= link_to "Roll", round_path(
-            @round,
+            round,
             turn: (turn_number.to_i + 1),
             remaining_dice_count: turn_stats["remaining_dice_count"]),
           method: :put,
@@ -47,7 +47,7 @@
         <% end %>
       </div>
       <div class="col-6">
-        <%= link_to "Stay", round_path(@round,
+        <%= link_to "Stay", round_path(round,
           stay: true,
           turn: (turn_number.to_i + 1),
           remaining_dice_count: turn_stats["remaining_dice_count"]),

@@ -1,34 +1,36 @@
 class RoundsController < ApplicationController
+  expose(:round)
+  expose(:turn) { Turn.new(params.fetch(:remaining_dice_count, 6)).create }
+  expose(:turn_handler) { TurnHandler.new(round, turn, params) }
+  expose(:scoreboard) { ScoreboardPresenter.new(round.game) }
+  expose(:round_turns) do
+    range = params[:turn].present? ? (1..params[:turn].to_i).to_a : [1]
+    round.turns.select { |k, v| range.include?(k.to_i) }
+  end
+
   def create
-    round = Round.new(round_params)
-    turn = Turn.new(6).create
-    handler = TurnHandler.new(round, turn, params).save
-    if handler[:game_path]
-      flash[:notice] = handler[:message]
-      redirect_to game_path(round.game, { flash_type: handler[:flash_type] })
-    else
-      redirect_to round_path(round, { flash_type: handler[:flash_type] })
+    if handler = turn_handler.save
+      if handler[:game_path]
+        flash[:notice] = handler[:message]
+        redirect_to game_path(round.game, { flash_type: handler[:flash_type] })
+      else
+        redirect_to round_path(round, { flash_type: handler[:flash_type] })
+      end
     end
   end
 
   def update
-    round = Round.find(params[:id])
-    turn = Turn.new(params[:remaining_dice_count]).create
-    handler = TurnHandler.new(round, turn, params).save
-    if handler[:game_path]
-      flash[:notice] = handler[:message]
-      redirect_to game_path(round.game, { flash_type: handler[:flash_type] })
-    else
-      redirect_to round_path(round, { turn: params[:turn], flash_type: handler[:flash_type] })
+    if handler = turn_handler.save
+      if handler[:game_path]
+        flash[:notice] = handler[:message]
+        redirect_to game_path(round.game, { flash_type: handler[:flash_type] })
+      else
+        redirect_to round_path(round, { turn: params[:turn], flash_type: handler[:flash_type] })
+      end
     end
   end
 
-  def show
-    @round = Round.find(params[:id])
-    range = params[:turn].present? ? (1..params[:turn].to_i).to_a : [1]
-    @round_turns = @round.turns.select { |k, v| range.include?(k.to_i) }
-    @scoreboard = ScoreboardPresenter.new(@round.game)
-  end
+  def show; end
 
   private
   def round_params

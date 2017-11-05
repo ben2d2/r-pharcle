@@ -9,7 +9,7 @@ class TurnHandler
 
   def save
     if game_over?
-      @round.game.update_attribute(:updated_at, Time.now)
+      round.game.update_attribute(:updated_at, Time.now)
       response
     elsif stayed?
       update_round
