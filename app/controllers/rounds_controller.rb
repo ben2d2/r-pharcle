@@ -31,20 +31,7 @@ class RoundsController < ApplicationController
   end
 
   private
-  def fetch_round_turns
-    range = params[:turn].present? ? (1..params[:turn].to_i).to_a : [1]
-    @round_turns = @round.turns.select { |k, v| range.include?(k.to_i) }
-  end
-
   def round_params
     params.require(:round).permit(:game_id, :player_id, :number, :remaining_dice_count)
-  end
-
-  def success_path
-    redirect_to game_path(@round.game)
-  end
-
-  def success_path
-    redirect_to game_path(@round.game)
   end
 end
