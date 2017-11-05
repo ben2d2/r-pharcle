@@ -9,6 +9,7 @@
 <body>
 <div class="header">
   <%= image_tag 'logo' %>
+  <%= link_to "Games", games_path, class: "btn btn-primary btn-lg" %>
 </div>
 <div class="container-fluid">
   <% flash.each do |name, msg| %>
