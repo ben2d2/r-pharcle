@@ -1,35 +1,18 @@
 <table class="table table-bordered">
-  <tr>
-    <% scoreboard.header_row.each.with_index do |cell, i| %>
-      <td
-        class="<%= i > 0 ? 'text-center' : 'first-column' %>
-        <%=  round.player.username== cell ? "active" : "" %>"
-      ><%= cell %></td>
-    <% end %>
-  </tr>
-  <tr>
-    <% scoreboard.totals_row.each.with_index do |cell, i| %>
-      <th class="<%= i > 0 ? 'text-center' : 'first-column' %>"><%= cell %></th>
-    <% end %>
-  </tr>
-  </tbody>
+  <%= render 'shared/header_row' %>
+  <%= render 'shared/totals_row' %>
 </table>
 
 <% round_turns.each do |turn_number, turn_stats| %>
   <div class="row">
-    <div class="col-6">
+    <div class="col-4">
       <% turn_stats["values"].each do |i| %>
         <%= image_tag "dice-#{i}", class: "dice-face" %>
       <% end %>
     </div>
     <div class="col-2">
       <div class="turn-score-badge">
-        <%= turn_stats["score"] %> pts.
-      </div>
-    </div>
-    <div class="col-3">
-      <div class="dice-remaining">
-        <%= turn_stats["remaining_dice_count"] %> <small>dice remaining</small>
+        <strong><%= turn_stats["score"] %> pts.</strong>
       </div>
     </div>
   </div>
@@ -38,7 +21,7 @@
     <div class="row">
       <div class="col-6">
         <% unless turn_number.to_i == 4 || turn_stats["remaining_dice_count"].zero? %>
-          <%= link_to "Roll", round_path(
+          <%= link_to "Roll: #{turn_stats['remaining_dice_count']} dice remaining", round_path(
             round,
             turn: (turn_number.to_i + 1),
             remaining_dice_count: turn_stats["remaining_dice_count"]),

@@ -1,0 +1,5 @@
+<tr>
+  <% scoreboard.totals_row.each.with_index do |cell, i| %>
+    <th class="<%= i > 0 ? 'text-center' : 'first-column' %>"><%= cell %></th>
+  <% end %>
+</tr>

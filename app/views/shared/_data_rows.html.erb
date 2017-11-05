@@ -1,0 +1,13 @@
+<tr>
+  <% scoreboard.last_row.each.with_index do |cell, i| %>
+    <td class="<%= i > 0 ? 'text-center' : 'first-column' %>">
+      <% if cell.is_a? Integer %>
+        <%= cell %>
+      <% else %>
+        <% unless game.over? %>
+          <%= link_to "Start Turn", rounds_path({ round: cell[:form_data] }), method: :post, class: "btn btn-primary btn-lg btn-block" %>
+        <% end %>
+      <% end %>
+      </td>
+  <% end %>
+</tr>

@@ -13,7 +13,7 @@
 </div>
 <div class="container-fluid">
   <% flash.each do |name, msg| %>
-    <%= content_tag :div, msg, class: "alert alert-#{@flash_type ? @flash_type : 'success'}" %>
+    <%= content_tag :div, msg, class: "alert alert-#{flash_type ? flash_type : 'info'}" %>
   <% end %>
   <%= yield %>
 </div>

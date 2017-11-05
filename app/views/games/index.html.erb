@@ -6,13 +6,13 @@
     <th></th>
   </thead>
   <tbody>
-    <% games.each do |game| %>
+    <% games.each do |g| %>
       <tr>
-        <td><%= game.id %></td>
-        <td><%= game.players.count %></td>
+        <td><%= g.id %></td>
+        <td><%= g.players.count %></td>
         <td>
-          <% unless game.over? %>
-            <%= link_to "Continue Playing", game_path(game), class: "btn btn-primary btn-lg" %>
+          <% unless g.over? %>
+            <%= link_to "Continue Playing", game_path(g), class: "btn btn-primary btn-lg" %>
           <% end %>
         </td>
       </tr>
