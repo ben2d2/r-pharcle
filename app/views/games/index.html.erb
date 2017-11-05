@@ -11,7 +11,11 @@
       <tr>
         <td><%= game.id %></td>
         <td><%= game.players.count %></td>
-        <td><%= link_to "Continue Playing", game_path(game) %></td>
+        <td>
+          <% unless game.over? %>
+            <%= link_to "Continue Playing", game_path(game) %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
