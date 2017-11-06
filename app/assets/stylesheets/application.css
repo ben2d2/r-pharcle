@@ -25,7 +25,7 @@
  }
 
  .dice-face-success {
-    border: 2px solid #007bff;
+    border: 2px solid #000;
   }
 
   .dice-face-failed {
@@ -43,18 +43,12 @@
     border-radius: 2px;
   }
 
-  .row {
-    margin-bottom: 30px;
-  }
-
-th.active {
-  background-color: #007bff;
-  color: #fff;
+.row {
+  margin-bottom: 30px;
 }
 
 td.active {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #e1e1e1;
 }
 
 .turn-score-badge {
@@ -71,6 +65,7 @@ td.active {
 
 table {
   font-size: 24px;
+  color: #868e96;
 }
 
 .alert {
@@ -79,8 +74,8 @@ table {
 
 .first-column {
   width: 100px;
-  color: #c5c5c5;
 }
+
  select {
    font-size: 24px;
    margin: 20px;
@@ -92,19 +87,25 @@ table {
    margin: 20px;
  }
 
-.header {
-  display: block;
-  background-color: #AFD275;
-  height: 60px;
-  width: 100%;
-  margin-bottom: 15px;
-  padding: 5px
+.navbar-dark {
+  background-color: #563d7c;
+  margin-bottom: 20px;
+}
+
+.nav-link {
+  font-size: 24px;
 }
 
 .badge-lg-blue {
-  background-color: #007bff;
   margin-top: 7px;
   margin-bottom: 0px;
   font-size: 38px;
   padding-bottom: 12px;
+}
+
+.btn-bd-yellow {
+  font-weight: 500;
+  color: #ffe484;
+  border-color: #ffe484;
+  font-size: 24px;
 }

@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-9">
       <% turn_stats["roll"].each do |dice| %>
-        <%= image_tag "dice-#{dice['value']}-#{dice['counted'] ? 'success' : 'failed'}", class: "dice-face dice-face-#{dice['counted'] ? 'success' : 'failed'}" %>
+        <%= image_tag "dice-#{dice['value']}#{dice['counted'] ? '' : '-failed'}", class: "dice-face dice-face-#{dice['counted'] ? 'success' : 'failed'}" %>
       <% end %>
     </div>
     <div class="col-3">
