@@ -31,27 +31,36 @@ class Turn
           remaining_dice_count -= 3
           score += (100 * count)
           remaining_dice_count -= count
+          update_counted(v)
         elsif k == 5
           score += 500
           count -= 3
           remaining_dice_count -= 3
           score += (50 * count)
           remaining_dice_count -= count
+          update_counted(v)
         else
           score += (100 * k)
           remaining_dice_count -= 3
+          update_counted(v.first(3))
         end
       else
         new_score = (mapping[k].to_i * count)
         score += new_score
         remaining_dice_count -= count unless new_score.zero?
+        update_counted(v) unless new_score.zero?
       end
     end
     {
       score: score,
       values: values,
+      roll: roll,
       remaining_dice_count: remaining_dice_count
     }
+  end
+
+  def update_counted(set)
+    set.each { |dice| dice.counted = true }
   end
 
   def mapping
