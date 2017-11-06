@@ -6,7 +6,6 @@ class DiceSet
   end
 
   def collection
-    fetch = (1..dice_count).map { |i| Dice.new(i) }
-    fetch.group_by { |dice| dice.value }
+    (1..dice_count).map { |i| Dice.new(i) }
   end
 end

@@ -6,13 +6,13 @@
 <% round_turns.each do |turn_number, turn_stats| %>
   <div class="row">
     <div class="col-9">
-      <% turn_stats["values"].each do |i| %>
-        <%= image_tag "dice-#{i}", class: "dice-face" %>
+      <% turn_stats["roll"].each do |dice| %>
+        <%= image_tag "dice-#{dice['value']}-#{dice['counted'] ? 'success' : 'failed'}", class: "dice-face dice-face-#{dice['counted'] ? 'success' : 'failed'}" %>
       <% end %>
     </div>
     <div class="col-3">
       <div class="turn-score-badge">
-        <strong class="badge badge-success badge-lg"><%= turn_stats["score"] %> pts.</strong>
+        <strong class="badge badge-success badge-lg-blue"><%= turn_stats["score"] %> pts.</strong>
       </div>
     </div>
   </div>

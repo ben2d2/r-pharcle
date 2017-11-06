@@ -10,10 +10,6 @@ class Turn
   end
 
   def create
-    score_for
-  end
-
-  def score_for
     return pharcle if values.sort == PHARCLE
     return three_pairs(values) if has_three_pairs?
     score_it
@@ -22,7 +18,7 @@ class Turn
   def score_it
     score = 0
     remaining_dice_count = dice_count
-    roll.each do |k, v|
+    grouped.each do |k, v|
       count = v.count
       if count >= 3
         if k == 1
@@ -68,11 +64,11 @@ class Turn
   end
 
   def values
-    @values ||= roll.map { |k, v| v.map(&:value) }.flatten
+    @values ||= roll.map(&:value)
   end
 
   def has_three_pairs?
-    roll.map { |k, v| v.count } == THREE_PAIRS
+    grouped.map { |k, v| v.count } == THREE_PAIRS
   end
 
   def three_pairs(values)
@@ -81,5 +77,9 @@ class Turn
 
   def pharcle
     { score: 3000, values: PHARCLE, remaining_dice_count: 0 }
+  end
+
+  def grouped
+    roll.group_by { |dice| dice.value }
   end
 end

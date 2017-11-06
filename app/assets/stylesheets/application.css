@@ -17,12 +17,20 @@
    display: inline-block;
    margin: 5px;
    padding: 5px;
-   height: 60px;
-   width: 60px;
+   height: 80px;
+   width: 80px;
    text-align: center;
-   border: 1px solid #000000;
+   border: 2px solid #000000;
    border-radius: 3px;
  }
+
+ .dice-face-success {
+    border: 2px solid #007bff;
+  }
+
+  .dice-face-failed {
+     border: 2px solid #e1e1e1;
+   }
 
  .dice-face-sm {
     display: inline-block;
@@ -40,12 +48,12 @@
   }
 
 th.active {
-  background-color: #75B2D2;
+  background-color: #007bff;
   color: #fff;
 }
 
 td.active {
-  background-color: #75B2D2;
+  background-color: #007bff;
   color: #fff;
 }
 
@@ -93,8 +101,10 @@ table {
   padding: 5px
 }
 
-.badge-lg {
+.badge-lg-blue {
+  background-color: #007bff;
   margin-top: 7px;
   margin-bottom: 0px;
   font-size: 38px;
+  padding-bottom: 12px;
 }
