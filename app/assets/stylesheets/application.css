@@ -109,3 +109,10 @@ table {
   border-color: #ffe484;
   font-size: 24px;
 }
+
+.btn-bd-yellow:hover {
+  font-weight: 500;
+  color: #FFF1C1;
+  border-color: #FFF1C1;
+  font-size: 24px;
+}
